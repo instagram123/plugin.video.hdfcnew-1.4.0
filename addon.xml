@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.hdfcnew" name="HDFC New" version="1.4.0" provider-name="hdfcnew">
+    <requires>
+        <import addon="xbmc.python" version="3.0.1"/>
+        <import addon="script.module.requests" version="2.22.0"/>
+        <!-- 21.x = Kodi 21 Omega. Close streams need ISA >= 21 (TS fallback for .jpg audio segments). -->
+        <import addon="inputstream.adaptive" version="21.0.0"/>
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>video</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en_GB">Movies and series from hdfilmcehennemi.nl</summary>
+        <summary lang="tr_TR">hdfilmcehennemi.nl film ve dizileri</summary>
+        <description lang="en_GB">Browse hdfilmcehennemi.nl (categories, search, series and episodes) and play every title with a choice of player source (Close, Rapidrame) and language version (Turkish dubbed, Turkish subtitled, original).</description>
+        <description lang="tr_TR">hdfilmcehennemi.nl sitesini gezin (kategoriler, arama, diziler ve bölümler) ve her içeriği oynatıcı kaynağı (Close, Rapidrame) ve dil seçeneği (Türkçe dublaj, Türkçe altyazılı, orijinal) seçerek izleyin.</description>
+        <platform>all</platform>
+        <assets>
+            <icon>icon.png</icon>
+        </assets>
+    </extension>
+</addon>

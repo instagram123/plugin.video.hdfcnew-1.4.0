@@ -1,0 +1,352 @@
+# Kodi Media Center language file
+# Addon Name: HDFC New
+# Addon id: plugin.video.hdfcnew
+msgid ""
+msgstr ""
+"Project-Id-Version: plugin.video.hdfcnew\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-06 00:00+0000\n"
+"PO-Revision-Date: 2026-10-06 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en_GB\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "#30010"
+msgid "Search"
+msgstr ""
+
+msgctxt "#30011"
+msgid "New search..."
+msgstr ""
+
+msgctxt "#30012"
+msgid "Recently added"
+msgstr ""
+
+msgctxt "#30013"
+msgid "Series"
+msgstr ""
+
+msgctxt "#30015"
+msgid "Genres"
+msgstr ""
+
+msgctxt "#30016"
+msgid "Categories"
+msgstr ""
+
+msgctxt "#30017"
+msgid "Years"
+msgstr ""
+
+msgctxt "#30018"
+msgid "Countries"
+msgstr ""
+
+msgctxt "#30019"
+msgid "Settings"
+msgstr ""
+
+msgctxt "#30020"
+msgid "Next page (%d/%d) >>"
+msgstr ""
+
+msgctxt "#30021"
+msgid "Season %d"
+msgstr ""
+
+msgctxt "#30022"
+msgid "Clear search history"
+msgstr ""
+
+msgctxt "#30023"
+msgid "Next page >>"
+msgstr ""
+
+msgctxt "#30024"
+msgid "Remove from search history"
+msgstr ""
+
+msgctxt "#30030"
+msgid "Select source"
+msgstr ""
+
+msgctxt "#30031"
+msgid "Select language - %s"
+msgstr ""
+
+msgctxt "#30032"
+msgid "(failed)"
+msgstr ""
+
+msgctxt "#30040"
+msgid "Turkish Dubbed (Türkçe Dublaj)"
+msgstr ""
+
+msgctxt "#30041"
+msgid "Turkish Subtitled (Türkçe Altyazılı)"
+msgstr ""
+
+msgctxt "#30042"
+msgid "Original (no subtitles)"
+msgstr ""
+
+msgctxt "#30043"
+msgid "burned-in subtitles"
+msgstr ""
+
+msgctxt "#30050"
+msgid "No video source found"
+msgstr ""
+
+msgctxt "#30051"
+msgid "%s failed, try %s"
+msgstr ""
+
+msgctxt "#30052"
+msgid "%s failed"
+msgstr ""
+
+msgctxt "#30053"
+msgid "Turkish audio track not found"
+msgstr ""
+
+msgctxt "#30054"
+msgid "Original audio track not found"
+msgstr ""
+
+msgctxt "#30055"
+msgid "Turkish subtitle not found"
+msgstr ""
+
+msgctxt "#30056"
+msgid "Could not load the page"
+msgstr ""
+
+msgctxt "#30057"
+msgid "No results"
+msgstr ""
+
+msgctxt "#30058"
+msgid "Cache cleared"
+msgstr ""
+
+msgctxt "#30060"
+msgid "Full-screen interface"
+msgstr ""
+
+msgctxt "#30061"
+msgid "Classic Kodi lists"
+msgstr ""
+
+msgctxt "#30062"
+msgid "Interface"
+msgstr ""
+
+msgctxt "#30063"
+msgid "Full-screen poster grid with a category sidebar, or the standard Kodi lists."
+msgstr ""
+
+msgctxt "#30064"
+msgid "Open full-screen interface"
+msgstr ""
+
+msgctxt "#30065"
+msgid "Page %d"
+msgstr ""
+
+msgctxt "#30066"
+msgid "Page %d / %d"
+msgstr ""
+
+msgctxt "#30067"
+msgid "<< Previous Page"
+msgstr ""
+
+msgctxt "#30068"
+msgid "Next Page >>"
+msgstr ""
+
+msgctxt "#30069"
+msgid "Loading..."
+msgstr ""
+
+msgctxt "#30070"
+msgid "%d results"
+msgstr ""
+
+msgctxt "#30071"
+msgid "Search: %s"
+msgstr ""
+
+msgctxt "#30072"
+msgid "%d seasons"
+msgstr ""
+
+msgctxt "#30073"
+msgid "%d episodes"
+msgstr ""
+
+msgctxt "#30074"
+msgid "SERIES"
+msgstr ""
+
+msgctxt "#30075"
+msgid "DUBBED"
+msgstr ""
+
+msgctxt "#30076"
+msgid "SUBTITLED"
+msgstr ""
+
+msgctxt "#30077"
+msgid "Nothing to show here"
+msgstr ""
+
+msgctxt "#30078"
+msgid "Classic lists"
+msgstr ""
+
+msgctxt "#30079"
+msgid "Play"
+msgstr ""
+
+msgctxt "#30080"
+msgid "Episodes"
+msgstr ""
+
+msgctxt "#30081"
+msgid "Trailer"
+msgstr ""
+
+msgctxt "#30082"
+msgid "Back"
+msgstr ""
+
+msgctxt "#30083"
+msgid "%d min"
+msgstr ""
+
+msgctxt "#30084"
+msgid "%d h %d min"
+msgstr ""
+
+msgctxt "#30085"
+msgid "Director"
+msgstr ""
+
+msgctxt "#30086"
+msgid "Cast"
+msgstr ""
+
+msgctxt "#30087"
+msgid "Sources"
+msgstr ""
+
+msgctxt "#30088"
+msgid "Loading details..."
+msgstr ""
+
+msgctxt "#30089"
+msgid "Could not load the details"
+msgstr ""
+
+msgctxt "#30090"
+msgid "Trailers need the YouTube add-on"
+msgstr ""
+
+msgctxt "#30091"
+msgid "Show details page before playing"
+msgstr ""
+
+msgctxt "#30092"
+msgid "Open a page with poster, plot and cast when a title is selected; press Play there to start it. Off: titles start playing directly."
+msgstr ""
+
+msgctxt "#30093"
+msgid "Actors"
+msgstr ""
+
+msgctxt "#30100"
+msgid "Playback"
+msgstr ""
+
+msgctxt "#30101"
+msgid "Preferred source"
+msgstr ""
+
+msgctxt "#30102"
+msgid "Skip the source dialog when this source exists for the title."
+msgstr ""
+
+msgctxt "#30103"
+msgid "Preferred language"
+msgstr ""
+
+msgctxt "#30104"
+msgid "Skip the language dialog when this version exists for the chosen source; otherwise you are asked."
+msgstr ""
+
+msgctxt "#30105"
+msgid "Attach all subtitle languages"
+msgstr ""
+
+msgctxt "#30106"
+msgid "Besides Turkish and English, also offer the other subtitle languages of the player."
+msgstr ""
+
+msgctxt "#30110"
+msgid "Ask"
+msgstr ""
+
+msgctxt "#30111"
+msgid "Close"
+msgstr ""
+
+msgctxt "#30112"
+msgid "Rapidrame"
+msgstr ""
+
+msgctxt "#30113"
+msgid "Turkish Dubbed"
+msgstr ""
+
+msgctxt "#30114"
+msgid "Turkish Subtitled"
+msgstr ""
+
+msgctxt "#30115"
+msgid "Original (no subtitles)"
+msgstr ""
+
+msgctxt "#30120"
+msgid "General"
+msgstr ""
+
+msgctxt "#30121"
+msgid "Site address"
+msgstr ""
+
+msgctxt "#30122"
+msgid "Change this when the site moves to a new domain."
+msgstr ""
+
+msgctxt "#30123"
+msgid "Debug logging"
+msgstr ""
+
+msgctxt "#30124"
+msgid "Write detailed messages (decoded URLs, tracks) to kodi.log."
+msgstr ""
+
+msgctxt "#30125"
+msgid "Clear cache"
+msgstr ""
+
+msgctxt "#30126"
+msgid "Forget cached categories and downloaded subtitles."
+msgstr ""

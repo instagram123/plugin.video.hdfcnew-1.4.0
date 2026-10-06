@@ -1,0 +1,352 @@
+# Kodi Media Center language file
+# Addon Name: HDFC New
+# Addon id: plugin.video.hdfcnew
+msgid ""
+msgstr ""
+"Project-Id-Version: plugin.video.hdfcnew\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-06 00:00+0000\n"
+"PO-Revision-Date: 2026-10-06 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Turkish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tr_TR\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "#30010"
+msgid "Search"
+msgstr "Ara"
+
+msgctxt "#30011"
+msgid "New search..."
+msgstr "Yeni arama..."
+
+msgctxt "#30012"
+msgid "Recently added"
+msgstr "Yeni eklenenler"
+
+msgctxt "#30013"
+msgid "Series"
+msgstr "Diziler"
+
+msgctxt "#30015"
+msgid "Genres"
+msgstr "Türler"
+
+msgctxt "#30016"
+msgid "Categories"
+msgstr "Kategoriler"
+
+msgctxt "#30017"
+msgid "Years"
+msgstr "Yıllar"
+
+msgctxt "#30018"
+msgid "Countries"
+msgstr "Ülkeler"
+
+msgctxt "#30019"
+msgid "Settings"
+msgstr "Ayarlar"
+
+msgctxt "#30020"
+msgid "Next page (%d/%d) >>"
+msgstr "Sonraki sayfa (%d/%d) >>"
+
+msgctxt "#30021"
+msgid "Season %d"
+msgstr "%d. Sezon"
+
+msgctxt "#30022"
+msgid "Clear search history"
+msgstr "Arama geçmişini temizle"
+
+msgctxt "#30023"
+msgid "Next page >>"
+msgstr "Sonraki sayfa >>"
+
+msgctxt "#30024"
+msgid "Remove from search history"
+msgstr "Arama geçmişinden sil"
+
+msgctxt "#30030"
+msgid "Select source"
+msgstr "Kaynak seçin"
+
+msgctxt "#30031"
+msgid "Select language - %s"
+msgstr "Dil seçin - %s"
+
+msgctxt "#30032"
+msgid "(failed)"
+msgstr "(başarısız)"
+
+msgctxt "#30040"
+msgid "Turkish Dubbed (Türkçe Dublaj)"
+msgstr "Türkçe Dublaj"
+
+msgctxt "#30041"
+msgid "Turkish Subtitled (Türkçe Altyazılı)"
+msgstr "Türkçe Altyazılı"
+
+msgctxt "#30042"
+msgid "Original (no subtitles)"
+msgstr "Orijinal (altyazısız)"
+
+msgctxt "#30043"
+msgid "burned-in subtitles"
+msgstr "gömülü altyazı"
+
+msgctxt "#30050"
+msgid "No video source found"
+msgstr "Video kaynağı bulunamadı"
+
+msgctxt "#30051"
+msgid "%s failed, try %s"
+msgstr "%s çalışmadı, %s deneyin"
+
+msgctxt "#30052"
+msgid "%s failed"
+msgstr "%s çalışmadı"
+
+msgctxt "#30053"
+msgid "Turkish audio track not found"
+msgstr "Türkçe ses bulunamadı"
+
+msgctxt "#30054"
+msgid "Original audio track not found"
+msgstr "Orijinal ses bulunamadı"
+
+msgctxt "#30055"
+msgid "Turkish subtitle not found"
+msgstr "Türkçe altyazı bulunamadı"
+
+msgctxt "#30056"
+msgid "Could not load the page"
+msgstr "Sayfa yüklenemedi"
+
+msgctxt "#30057"
+msgid "No results"
+msgstr "Sonuç bulunamadı"
+
+msgctxt "#30058"
+msgid "Cache cleared"
+msgstr "Önbellek temizlendi"
+
+msgctxt "#30060"
+msgid "Full-screen interface"
+msgstr "Tam ekran arayüz"
+
+msgctxt "#30061"
+msgid "Classic Kodi lists"
+msgstr "Klasik Kodi listeleri"
+
+msgctxt "#30062"
+msgid "Interface"
+msgstr "Arayüz"
+
+msgctxt "#30063"
+msgid "Full-screen poster grid with a category sidebar, or the standard Kodi lists."
+msgstr "Kategori menülü tam ekran afiş görünümü veya standart Kodi listeleri."
+
+msgctxt "#30064"
+msgid "Open full-screen interface"
+msgstr "Tam ekran arayüzü aç"
+
+msgctxt "#30065"
+msgid "Page %d"
+msgstr "Sayfa %d"
+
+msgctxt "#30066"
+msgid "Page %d / %d"
+msgstr "Sayfa %d / %d"
+
+msgctxt "#30067"
+msgid "<< Previous Page"
+msgstr "<< Önceki Sayfa"
+
+msgctxt "#30068"
+msgid "Next Page >>"
+msgstr "Sonraki Sayfa >>"
+
+msgctxt "#30069"
+msgid "Loading..."
+msgstr "Yükleniyor..."
+
+msgctxt "#30070"
+msgid "%d results"
+msgstr "%d sonuç"
+
+msgctxt "#30071"
+msgid "Search: %s"
+msgstr "Arama: %s"
+
+msgctxt "#30072"
+msgid "%d seasons"
+msgstr "%d sezon"
+
+msgctxt "#30073"
+msgid "%d episodes"
+msgstr "%d bölüm"
+
+msgctxt "#30074"
+msgid "SERIES"
+msgstr "DİZİ"
+
+msgctxt "#30075"
+msgid "DUBBED"
+msgstr "DUBLAJ"
+
+msgctxt "#30076"
+msgid "SUBTITLED"
+msgstr "ALTYAZI"
+
+msgctxt "#30077"
+msgid "Nothing to show here"
+msgstr "Burada gösterilecek içerik yok"
+
+msgctxt "#30078"
+msgid "Classic lists"
+msgstr "Klasik listeler"
+
+msgctxt "#30079"
+msgid "Play"
+msgstr "Oynat"
+
+msgctxt "#30080"
+msgid "Episodes"
+msgstr "Bölümler"
+
+msgctxt "#30081"
+msgid "Trailer"
+msgstr "Fragman"
+
+msgctxt "#30082"
+msgid "Back"
+msgstr "Geri"
+
+msgctxt "#30083"
+msgid "%d min"
+msgstr "%d dk"
+
+msgctxt "#30084"
+msgid "%d h %d min"
+msgstr "%d sa %d dk"
+
+msgctxt "#30085"
+msgid "Director"
+msgstr "Yönetmen"
+
+msgctxt "#30086"
+msgid "Cast"
+msgstr "Oyuncular"
+
+msgctxt "#30087"
+msgid "Sources"
+msgstr "Kaynaklar"
+
+msgctxt "#30088"
+msgid "Loading details..."
+msgstr "Ayrıntılar yükleniyor..."
+
+msgctxt "#30089"
+msgid "Could not load the details"
+msgstr "Ayrıntılar yüklenemedi"
+
+msgctxt "#30090"
+msgid "Trailers need the YouTube add-on"
+msgstr "Fragman için YouTube eklentisi gerekir"
+
+msgctxt "#30091"
+msgid "Show details page before playing"
+msgstr "Oynatmadan önce ayrıntı sayfasını göster"
+
+msgctxt "#30092"
+msgid "Open a page with poster, plot and cast when a title is selected; press Play there to start it. Off: titles start playing directly."
+msgstr "Bir içerik seçildiğinde afiş, özet ve oyuncuları gösteren bir sayfa açılır; oynatmak için Oynat düğmesine basın. Kapalıysa içerik doğrudan oynatılır."
+
+msgctxt "#30093"
+msgid "Actors"
+msgstr "Oyuncular"
+
+msgctxt "#30100"
+msgid "Playback"
+msgstr "Oynatma"
+
+msgctxt "#30101"
+msgid "Preferred source"
+msgstr "Tercih edilen kaynak"
+
+msgctxt "#30102"
+msgid "Skip the source dialog when this source exists for the title."
+msgstr "Bu kaynak mevcutsa kaynak seçimi atlanır."
+
+msgctxt "#30103"
+msgid "Preferred language"
+msgstr "Tercih edilen dil"
+
+msgctxt "#30104"
+msgid "Skip the language dialog when this version exists for the chosen source; otherwise you are asked."
+msgstr "Seçilen kaynakta bu seçenek varsa dil seçimi atlanır; yoksa sorulur."
+
+msgctxt "#30105"
+msgid "Attach all subtitle languages"
+msgstr "Tüm altyazı dillerini ekle"
+
+msgctxt "#30106"
+msgid "Besides Turkish and English, also offer the other subtitle languages of the player."
+msgstr "Türkçe ve İngilizce dışındaki altyazı dillerini de ekler."
+
+msgctxt "#30110"
+msgid "Ask"
+msgstr "Sor"
+
+msgctxt "#30111"
+msgid "Close"
+msgstr "Close"
+
+msgctxt "#30112"
+msgid "Rapidrame"
+msgstr "Rapidrame"
+
+msgctxt "#30113"
+msgid "Turkish Dubbed"
+msgstr "Türkçe Dublaj"
+
+msgctxt "#30114"
+msgid "Turkish Subtitled"
+msgstr "Türkçe Altyazılı"
+
+msgctxt "#30115"
+msgid "Original (no subtitles)"
+msgstr "Orijinal (altyazısız)"
+
+msgctxt "#30120"
+msgid "General"
+msgstr "Genel"
+
+msgctxt "#30121"
+msgid "Site address"
+msgstr "Site adresi"
+
+msgctxt "#30122"
+msgid "Change this when the site moves to a new domain."
+msgstr "Site yeni bir adrese taşınırsa değiştirin."
+
+msgctxt "#30123"
+msgid "Debug logging"
+msgstr "Hata ayıklama kaydı"
+
+msgctxt "#30124"
+msgid "Write detailed messages (decoded URLs, tracks) to kodi.log."
+msgstr "Ayrıntılı mesajları (çözülen adresler, parçalar) kodi.log dosyasına yazar."
+
+msgctxt "#30125"
+msgid "Clear cache"
+msgstr "Önbelleği temizle"
+
+msgctxt "#30126"
+msgid "Forget cached categories and downloaded subtitles."
+msgstr "Önbelleğe alınan kategorileri ve indirilen altyazıları siler."

@@ -1,0 +1,733 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    plugin.video.hdfcnew - full-screen browser (opened by resources/lib/gui.py)
+    Colors: background FF0B0D12, sidebar E6141821, accent FFE50914 (red), muted text FF8A90A0.
+    Control ids: 200 search, 210 settings, 300 categories, 500 poster grid, 600 bottom buttons (601 prev, 602 next).
+    Window properties set from Python: view_title, view_subtitle, page_label, has_prev, has_next,
+    loading, empty, search_active, addon_name.
+    Details view (same window, shown instead of the browser while details_open is set):
+    control ids 700 buttons (701 Play / Episodes, 702 Trailer, 703 Back), 710 plot scrollbar;
+    properties details_open, d_title, d_original, d_poster, d_backdrop, d_meta, d_plot, d_director,
+    d_cast, d_sources, d_trailer, d_main_label, d_loading.
+-->
+<window>
+    <defaultcontrol always="false">300</defaultcontrol>
+    <backgroundcolor>FF0B0D12</backgroundcolor>
+    <animation effect="fade" start="0" end="100" time="250">WindowOpen</animation>
+    <animation effect="fade" start="100" end="0" time="200">WindowClose</animation>
+    <controls>
+        <!-- ================= background + dimmed backdrop of the focused poster ================= -->
+        <control type="image">
+            <left>0</left><top>0</top><width>1920</width><height>1080</height>
+            <texture colordiffuse="FF0B0D12">hdfcnew_white.png</texture>
+        </control>
+        <!-- ================= browser: hidden while the details view is open ================= -->
+        <control type="group">
+            <visible>String.IsEmpty(Window.Property(details_open))</visible>
+            <animation effect="fade" start="0" end="100" time="200">VisibleChange</animation>
+            <control type="image">
+                <left>380</left><top>0</top><width>1540</width><height>1080</height>
+                <aspectratio>scale</aspectratio>
+                <fadetime>500</fadetime>
+                <texture background="true" colordiffuse="40FFFFFF">$INFO[Container(500).ListItem.Art(poster)]</texture>
+                <visible>!String.IsEmpty(Container(500).ListItem.Art(poster))</visible>
+            </control>
+            <control type="image">
+                <left>380</left><top>0</top><width>1540</width><height>1080</height>
+                <texture colordiffuse="C00B0D12">hdfcnew_white.png</texture>
+            </control>
+            <control type="image">
+                <left>380</left><top>0</top><width>900</width><height>1080</height>
+                <texture colordiffuse="E6FFFFFF">hdfcnew_gradient_h.png</texture>
+            </control>
+            <control type="image">
+                <left>380</left><top>640</top><width>1540</width><height>440</height>
+                <texture colordiffuse="FFFFFFFF">hdfcnew_gradient_v.png</texture>
+            </control>
+
+            <!-- ================= sidebar ================= -->
+            <control type="image">
+                <left>0</left><top>0</top><width>380</width><height>1080</height>
+                <texture colordiffuse="E6141821">hdfcnew_white.png</texture>
+            </control>
+            <control type="image">
+                <left>379</left><top>0</top><width>1</width><height>1080</height>
+                <texture colordiffuse="FF232836">hdfcnew_white.png</texture>
+            </control>
+            <control type="image">
+                <left>28</left><top>30</top><width>68</width><height>68</height>
+                <aspectratio>keep</aspectratio>
+                <texture diffuse="hdfcnew_rounded.png">hdfcnew_logo.png</texture>
+            </control>
+            <control type="label">
+                <left>110</left><top>34</top><width>256</width><height>34</height>
+                <font>font14</font>
+                <textcolor>FFFFFFFF</textcolor>
+                <label>$INFO[Window.Property(addon_name)]</label>
+            </control>
+            <control type="label">
+                <left>110</left><top>66</top><width>256</width><height>28</height>
+                <font>font10</font>
+                <textcolor>FF8A90A0</textcolor>
+                <label>hdfilmcehennemi.nl</label>
+            </control>
+
+            <!-- search -->
+            <control type="image">
+                <left>8</left><top>136</top><width>5</width><height>36</height>
+                <texture colordiffuse="FFE50914">hdfcnew_white.png</texture>
+                <visible>String.IsEqual(Window.Property(search_active),true)</visible>
+            </control>
+            <control type="button" id="200">
+                <left>24</left><top>124</top><width>332</width><height>60</height>
+                <label>$ADDON[plugin.video.hdfcnew 30010]</label>
+                <font>font13</font>
+                <textcolor>FFC8CCD6</textcolor>
+                <focusedcolor>FFFFFFFF</focusedcolor>
+                <textoffsetx>62</textoffsetx>
+                <aligny>center</aligny>
+                <texturefocus border="16" colordiffuse="FFE50914">hdfcnew_rounded.png</texturefocus>
+                <texturenofocus border="16" colordiffuse="FF1E2330">hdfcnew_rounded.png</texturenofocus>
+                <onup>210</onup>
+                <ondown>300</ondown>
+                <onright>500</onright>
+            </control>
+            <control type="image">
+                <left>44</left><top>140</top><width>28</width><height>28</height>
+                <aspectratio>keep</aspectratio>
+                <texture colordiffuse="FFC8CCD6">DefaultAddonsSearch.png</texture>
+            </control>
+
+            <!-- categories -->
+            <control type="list" id="300">
+                <left>16</left><top>204</top><width>348</width><height>776</height>
+                <onup>200</onup>
+                <ondown>210</ondown>
+                <onright>500</onright>
+                <orientation>vertical</orientation>
+                <scrolltime tween="cubic" easing="out">200</scrolltime>
+                <itemlayout width="348" height="52">
+                    <!-- selected category: tinted background + accent bar (stays when focus is in the grid) -->
+                    <control type="image">
+                        <left>0</left><top>4</top><width>348</width><height>44</height>
+                        <texture border="16" colordiffuse="2EE50914">hdfcnew_rounded.png</texture>
+                        <visible>String.IsEqual(ListItem.Property(active),true)</visible>
+                    </control>
+                    <control type="image">
+                        <left>0</left><top>12</top><width>5</width><height>28</height>
+                        <texture colordiffuse="FFE50914">hdfcnew_white.png</texture>
+                        <visible>String.IsEqual(ListItem.Property(active),true)</visible>
+                    </control>
+                    <!-- group header -->
+                    <control type="label">
+                        <left>18</left><top>0</top><width>280</width><height>52</height>
+                        <font>font10</font>
+                        <aligny>center</aligny>
+                        <textcolor>FF6C7385</textcolor>
+                        <label>[UPPERCASE]$INFO[ListItem.Label][/UPPERCASE]</label>
+                        <visible>String.IsEqual(ListItem.Property(header),true)</visible>
+                    </control>
+                    <control type="label">
+                        <left>290</left><top>0</top><width>40</width><height>52</height>
+                        <font>font13</font>
+                        <align>center</align>
+                        <aligny>center</aligny>
+                        <textcolor>FF6C7385</textcolor>
+                        <label>$INFO[ListItem.Property(arrow)]</label>
+                        <visible>String.IsEqual(ListItem.Property(header),true)</visible>
+                    </control>
+                    <!-- entry (child entries are indented) -->
+                    <control type="label">
+                        <left>24</left><top>0</top><width>310</width><height>52</height>
+                        <font>font13</font>
+                        <aligny>center</aligny>
+                        <textcolor>FFA9AFBD</textcolor>
+                        <label>$INFO[ListItem.Label]</label>
+                        <visible>!String.IsEqual(ListItem.Property(header),true) + !String.IsEqual(ListItem.Property(child),true) + !String.IsEqual(ListItem.Property(active),true)</visible>
+                    </control>
+                    <control type="label">
+                        <left>24</left><top>0</top><width>310</width><height>52</height>
+                        <font>font13</font>
+                        <aligny>center</aligny>
+                        <textcolor>FFFFFFFF</textcolor>
+                        <label>$INFO[ListItem.Label]</label>
+                        <visible>!String.IsEqual(ListItem.Property(header),true) + !String.IsEqual(ListItem.Property(child),true) + String.IsEqual(ListItem.Property(active),true)</visible>
+                    </control>
+                    <control type="label">
+                        <left>42</left><top>0</top><width>292</width><height>52</height>
+                        <font>font12</font>
+                        <aligny>center</aligny>
+                        <textcolor>FF9AA0AE</textcolor>
+                        <label>$INFO[ListItem.Label]</label>
+                        <visible>String.IsEqual(ListItem.Property(child),true) + !String.IsEqual(ListItem.Property(active),true)</visible>
+                    </control>
+                    <control type="label">
+                        <left>42</left><top>0</top><width>292</width><height>52</height>
+                        <font>font12</font>
+                        <aligny>center</aligny>
+                        <textcolor>FFFFFFFF</textcolor>
+                        <label>$INFO[ListItem.Label]</label>
+                        <visible>String.IsEqual(ListItem.Property(child),true) + String.IsEqual(ListItem.Property(active),true)</visible>
+                    </control>
+                </itemlayout>
+                <focusedlayout width="348" height="52">
+                    <control type="image">
+                        <left>0</left><top>4</top><width>348</width><height>44</height>
+                        <texture border="16" colordiffuse="2EE50914">hdfcnew_rounded.png</texture>
+                        <visible>String.IsEqual(ListItem.Property(active),true) + !Control.HasFocus(300)</visible>
+                    </control>
+                    <control type="image">
+                        <left>0</left><top>4</top><width>348</width><height>44</height>
+                        <texture border="16" colordiffuse="FF2A303E">hdfcnew_rounded.png</texture>
+                        <visible>Control.HasFocus(300)</visible>
+                        <animation effect="fade" start="0" end="100" time="150">Visible</animation>
+                    </control>
+                    <control type="image">
+                        <left>0</left><top>12</top><width>5</width><height>28</height>
+                        <texture colordiffuse="FFE50914">hdfcnew_white.png</texture>
+                        <visible>String.IsEqual(ListItem.Property(active),true) | Control.HasFocus(300)</visible>
+                    </control>
+                    <control type="label">
+                        <left>18</left><top>0</top><width>280</width><height>52</height>
+                        <font>font10</font>
+                        <aligny>center</aligny>
+                        <textcolor>FFC8CCD6</textcolor>
+                        <label>[UPPERCASE]$INFO[ListItem.Label][/UPPERCASE]</label>
+                        <visible>String.IsEqual(ListItem.Property(header),true)</visible>
+                    </control>
+                    <control type="label">
+                        <left>290</left><top>0</top><width>40</width><height>52</height>
+                        <font>font13</font>
+                        <align>center</align>
+                        <aligny>center</aligny>
+                        <textcolor>FFC8CCD6</textcolor>
+                        <label>$INFO[ListItem.Property(arrow)]</label>
+                        <visible>String.IsEqual(ListItem.Property(header),true)</visible>
+                    </control>
+                    <control type="label">
+                        <left>24</left><top>0</top><width>310</width><height>52</height>
+                        <font>font13</font>
+                        <aligny>center</aligny>
+                        <textcolor>FFFFFFFF</textcolor>
+                        <scroll>true</scroll>
+                        <label>$INFO[ListItem.Label]</label>
+                        <visible>!String.IsEqual(ListItem.Property(header),true) + !String.IsEqual(ListItem.Property(child),true)</visible>
+                    </control>
+                    <control type="label">
+                        <left>42</left><top>0</top><width>292</width><height>52</height>
+                        <font>font12</font>
+                        <aligny>center</aligny>
+                        <textcolor>FFFFFFFF</textcolor>
+                        <scroll>true</scroll>
+                        <label>$INFO[ListItem.Label]</label>
+                        <visible>String.IsEqual(ListItem.Property(child),true)</visible>
+                    </control>
+                </focusedlayout>
+            </control>
+
+            <!-- settings -->
+            <control type="button" id="210">
+                <left>24</left><top>996</top><width>332</width><height>52</height>
+                <label>$ADDON[plugin.video.hdfcnew 30019]</label>
+                <font>font12</font>
+                <textcolor>FF8A90A0</textcolor>
+                <focusedcolor>FFFFFFFF</focusedcolor>
+                <textoffsetx>24</textoffsetx>
+                <aligny>center</aligny>
+                <texturefocus border="16" colordiffuse="FFE50914">hdfcnew_rounded.png</texturefocus>
+                <texturenofocus border="16" colordiffuse="00000000">hdfcnew_rounded.png</texturenofocus>
+                <onup>300</onup>
+                <ondown>200</ondown>
+                <onright>500</onright>
+            </control>
+
+            <!-- ================= header ================= -->
+            <control type="label">
+                <left>430</left><top>30</top><width>860</width><height>60</height>
+                <font>font30_title</font>
+                <textcolor>FFFFFFFF</textcolor>
+                <label>$INFO[Window.Property(view_title)]</label>
+            </control>
+            <control type="label">
+                <left>432</left><top>90</top><width>860</width><height>32</height>
+                <font>font12</font>
+                <textcolor>FF8A90A0</textcolor>
+                <label>$INFO[Window.Property(view_subtitle)]</label>
+            </control>
+            <control type="group">
+                <visible>Control.HasFocus(500) + !String.IsEmpty(Container(500).ListItem.Property(fulltitle))</visible>
+                <animation effect="fade" start="0" end="100" time="200">Visible</animation>
+                <control type="label">
+                    <left>1300</left><top>36</top><width>580</width><height>40</height>
+                    <font>font13</font>
+                    <align>right</align>
+                    <textcolor>FFFFFFFF</textcolor>
+                    <label>$INFO[Container(500).ListItem.Property(fulltitle)]</label>
+                </control>
+                <control type="label">
+                    <left>1300</left><top>78</top><width>580</width><height>32</height>
+                    <font>font12</font>
+                    <align>right</align>
+                    <textcolor>FFF5A623</textcolor>
+                    <label>$INFO[Container(500).ListItem.Property(meta)]</label>
+                </control>
+            </control>
+
+            <!-- ================= poster grid ================= -->
+            <control type="panel" id="500">
+                <left>420</left><top>136</top><width>1476</width><height>840</height>
+                <onleft>300</onleft>
+                <ondown>600</ondown>
+                <onup>200</onup>
+                <orientation>vertical</orientation>
+                <scrolltime tween="cubic" easing="out">250</scrolltime>
+                <preloaditems>2</preloaditems>
+                <itemlayout width="246" height="420">
+                    <control type="image">
+                        <left>23</left><top>16</top><width>200</width><height>300</height>
+                        <texture diffuse="hdfcnew_mask.png" colordiffuse="FFA8A8A8">hdfcnew_placeholder.png</texture>
+                    </control>
+                    <control type="image">
+                        <left>23</left><top>16</top><width>200</width><height>300</height>
+                        <aspectratio>scale</aspectratio>
+                        <fadetime>200</fadetime>
+                        <texture background="true" diffuse="hdfcnew_mask.png" colordiffuse="FFA8A8A8" fallback="hdfcnew_placeholder.png">$INFO[ListItem.Art(poster)]</texture>
+                    </control>
+                    <!-- badges -->
+                    <control type="group">
+                        <left>31</left><top>24</top>
+                        <visible>!String.IsEmpty(ListItem.Property(badge))</visible>
+                        <control type="image">
+                            <left>0</left><top>0</top><width>124</width><height>26</height>
+                            <texture border="10" colordiffuse="D9000000">hdfcnew_rounded.png</texture>
+                        </control>
+                        <control type="label">
+                            <left>0</left><top>0</top><width>124</width><height>26</height>
+                            <font>font10</font><align>center</align><aligny>center</aligny>
+                            <textcolor>FFE6E8EE</textcolor>
+                            <label>$INFO[ListItem.Property(badge)]</label>
+                        </control>
+                    </control>
+                    <control type="group">
+                        <left>161</left><top>24</top>
+                        <visible>!String.IsEmpty(ListItem.Property(rating))</visible>
+                        <control type="image">
+                            <left>0</left><top>0</top><width>54</width><height>26</height>
+                            <texture border="10" colordiffuse="E6F5A623">hdfcnew_rounded.png</texture>
+                        </control>
+                        <control type="label">
+                            <left>0</left><top>0</top><width>54</width><height>26</height>
+                            <font>font10</font><align>center</align><aligny>center</aligny>
+                            <textcolor>FF111111</textcolor>
+                            <label>$INFO[ListItem.Property(rating)]</label>
+                        </control>
+                    </control>
+                    <control type="group">
+                        <left>31</left><top>282</top>
+                        <visible>!String.IsEmpty(ListItem.Property(year))</visible>
+                        <control type="image">
+                            <left>0</left><top>0</top><width>64</width><height>26</height>
+                            <texture border="10" colordiffuse="D9000000">hdfcnew_rounded.png</texture>
+                        </control>
+                        <control type="label">
+                            <left>0</left><top>0</top><width>64</width><height>26</height>
+                            <font>font10</font><align>center</align><aligny>center</aligny>
+                            <textcolor>FFE6E8EE</textcolor>
+                            <label>$INFO[ListItem.Property(year)]</label>
+                        </control>
+                    </control>
+                    <control type="label">
+                        <left>13</left><top>326</top><width>220</width><height>68</height>
+                        <font>font12</font>
+                        <align>center</align>
+                        <wrapmultiline>true</wrapmultiline>
+                        <textcolor>FF8A90A0</textcolor>
+                        <label>$INFO[ListItem.Property(shorttitle)]</label>
+                    </control>
+                </itemlayout>
+                <focusedlayout width="246" height="420">
+                    <control type="group">
+                        <left>0</left><top>0</top><width>246</width><height>332</height>
+                        <animation effect="zoom" start="100" end="108" center="auto" time="200" tween="sine" easing="out" condition="Control.HasFocus(500)">Conditional</animation>
+                        <control type="image">
+                            <left>-1</left><top>-8</top><width>248</width><height>348</height>
+                            <texture border="32" colordiffuse="99E50914">hdfcnew_glow.png</texture>
+                            <visible>Control.HasFocus(500)</visible>
+                            <animation effect="fade" start="0" end="100" time="200">Visible</animation>
+                        </control>
+                        <control type="image">
+                            <left>23</left><top>16</top><width>200</width><height>300</height>
+                            <texture diffuse="hdfcnew_mask.png">hdfcnew_placeholder.png</texture>
+                        </control>
+                        <control type="image">
+                            <left>23</left><top>16</top><width>200</width><height>300</height>
+                            <aspectratio>scale</aspectratio>
+                            <fadetime>200</fadetime>
+                            <texture background="true" diffuse="hdfcnew_mask.png" fallback="hdfcnew_placeholder.png">$INFO[ListItem.Art(poster)]</texture>
+                        </control>
+                        <!-- dim like the other tiles while the grid itself is not focused -->
+                        <control type="image">
+                            <left>23</left><top>16</top><width>200</width><height>300</height>
+                            <texture diffuse="hdfcnew_mask.png" colordiffuse="58000000">hdfcnew_white.png</texture>
+                            <visible>!Control.HasFocus(500)</visible>
+                        </control>
+                        <control type="image">
+                            <left>17</left><top>10</top><width>212</width><height>312</height>
+                            <texture border="20" colordiffuse="FFE50914">hdfcnew_border.png</texture>
+                            <visible>Control.HasFocus(500)</visible>
+                            <animation effect="fade" start="0" end="100" time="200">Visible</animation>
+                        </control>
+                        <control type="group">
+                            <left>31</left><top>24</top>
+                            <visible>!String.IsEmpty(ListItem.Property(badge))</visible>
+                            <control type="image">
+                                <left>0</left><top>0</top><width>124</width><height>26</height>
+                                <texture border="10" colordiffuse="FFE50914">hdfcnew_rounded.png</texture>
+                                <visible>Control.HasFocus(500)</visible>
+                            </control>
+                            <control type="image">
+                                <left>0</left><top>0</top><width>124</width><height>26</height>
+                                <texture border="10" colordiffuse="D9000000">hdfcnew_rounded.png</texture>
+                                <visible>!Control.HasFocus(500)</visible>
+                            </control>
+                            <control type="label">
+                                <left>0</left><top>0</top><width>124</width><height>26</height>
+                                <font>font10</font><align>center</align><aligny>center</aligny>
+                                <textcolor>FFFFFFFF</textcolor>
+                                <label>$INFO[ListItem.Property(badge)]</label>
+                            </control>
+                        </control>
+                        <control type="group">
+                            <left>161</left><top>24</top>
+                            <visible>!String.IsEmpty(ListItem.Property(rating))</visible>
+                            <control type="image">
+                                <left>0</left><top>0</top><width>54</width><height>26</height>
+                                <texture border="10" colordiffuse="FFF5A623">hdfcnew_rounded.png</texture>
+                            </control>
+                            <control type="label">
+                                <left>0</left><top>0</top><width>54</width><height>26</height>
+                                <font>font10</font><align>center</align><aligny>center</aligny>
+                                <textcolor>FF111111</textcolor>
+                                <label>$INFO[ListItem.Property(rating)]</label>
+                            </control>
+                        </control>
+                        <control type="group">
+                            <left>31</left><top>282</top>
+                            <visible>!String.IsEmpty(ListItem.Property(year))</visible>
+                            <control type="image">
+                                <left>0</left><top>0</top><width>64</width><height>26</height>
+                                <texture border="10" colordiffuse="E6000000">hdfcnew_rounded.png</texture>
+                            </control>
+                            <control type="label">
+                                <left>0</left><top>0</top><width>64</width><height>26</height>
+                                <font>font10</font><align>center</align><aligny>center</aligny>
+                                <textcolor>FFFFFFFF</textcolor>
+                                <label>$INFO[ListItem.Property(year)]</label>
+                            </control>
+                        </control>
+                    </control>
+                    <control type="label">
+                        <left>13</left><top>330</top><width>220</width><height>68</height>
+                        <font>font12</font>
+                        <align>center</align>
+                        <wrapmultiline>true</wrapmultiline>
+                        <textcolor>FFFFFFFF</textcolor>
+                        <label>$INFO[ListItem.Property(shorttitle)]</label>
+                        <visible>Control.HasFocus(500)</visible>
+                    </control>
+                    <control type="label">
+                        <left>13</left><top>326</top><width>220</width><height>68</height>
+                        <font>font12</font>
+                        <align>center</align>
+                        <wrapmultiline>true</wrapmultiline>
+                        <textcolor>FF8A90A0</textcolor>
+                        <label>$INFO[ListItem.Property(shorttitle)]</label>
+                        <visible>!Control.HasFocus(500)</visible>
+                    </control>
+                </focusedlayout>
+            </control>
+
+            <!-- loading / empty -->
+            <control type="label">
+                <left>420</left><top>520</top><width>1476</width><height>60</height>
+                <font>font13</font>
+                <align>center</align>
+                <textcolor>FFC8CCD6</textcolor>
+                <label>$ADDON[plugin.video.hdfcnew 30069]</label>
+                <visible>String.IsEqual(Window.Property(loading),true)</visible>
+                <animation effect="fade" start="35" end="100" time="700" pulse="true" condition="true">Conditional</animation>
+            </control>
+            <control type="label">
+                <left>420</left><top>520</top><width>1476</width><height>60</height>
+                <font>font13</font>
+                <align>center</align>
+                <textcolor>FF8A90A0</textcolor>
+                <label>$ADDON[plugin.video.hdfcnew 30077]</label>
+                <visible>String.IsEqual(Window.Property(empty),true) + !String.IsEqual(Window.Property(loading),true)</visible>
+            </control>
+
+            <!-- ================= bottom bar ================= -->
+            <control type="image">
+                <left>420</left><top>978</top><width>1476</width><height>1</height>
+                <texture colordiffuse="FF232836">hdfcnew_white.png</texture>
+            </control>
+            <control type="grouplist" id="600">
+                <left>430</left><top>994</top><width>1000</width><height>58</height>
+                <orientation>horizontal</orientation>
+                <itemgap>18</itemgap>
+                <onup>500</onup>
+                <onleft>300</onleft>
+                <control type="button" id="601">
+                    <width>300</width><height>58</height>
+                    <label>$ADDON[plugin.video.hdfcnew 30067]</label>
+                    <font>font13</font>
+                    <align>center</align>
+                    <aligny>center</aligny>
+                    <textcolor>FFC8CCD6</textcolor>
+                    <focusedcolor>FFFFFFFF</focusedcolor>
+                    <texturefocus border="16" colordiffuse="FFE50914">hdfcnew_rounded.png</texturefocus>
+                    <texturenofocus border="16" colordiffuse="FF1E2330">hdfcnew_rounded.png</texturenofocus>
+                    <onup>500</onup>
+                    <visible>String.IsEqual(Window.Property(has_prev),true)</visible>
+                </control>
+                <control type="button" id="602">
+                    <width>300</width><height>58</height>
+                    <label>$ADDON[plugin.video.hdfcnew 30068]</label>
+                    <font>font13</font>
+                    <align>center</align>
+                    <aligny>center</aligny>
+                    <textcolor>FFC8CCD6</textcolor>
+                    <focusedcolor>FFFFFFFF</focusedcolor>
+                    <texturefocus border="16" colordiffuse="FFE50914">hdfcnew_rounded.png</texturefocus>
+                    <texturenofocus border="16" colordiffuse="FF1E2330">hdfcnew_rounded.png</texturenofocus>
+                    <onup>500</onup>
+                    <visible>String.IsEqual(Window.Property(has_next),true)</visible>
+                </control>
+            </control>
+            <control type="label">
+                <left>1400</left><top>994</top><width>480</width><height>58</height>
+                <font>font13</font>
+                <align>right</align>
+                <aligny>center</aligny>
+                <textcolor>FF8A90A0</textcolor>
+                <label>$INFO[Window.Property(page_label)]</label>
+            </control>
+        </control>
+        <!-- ================= details view (movie / series): shown while Window.Property(details_open) is set ================= -->
+        <control type="group">
+            <visible>!String.IsEmpty(Window.Property(details_open))</visible>
+            <animation effect="fade" start="0" end="100" time="200">VisibleChange</animation>
+
+            <!-- dimmed backdrop (cover image, else the poster) -->
+            <control type="image">
+                <left>0</left><top>0</top><width>1920</width><height>1080</height>
+                <aspectratio>scale</aspectratio>
+                <fadetime>500</fadetime>
+                <texture background="true" colordiffuse="55FFFFFF">$INFO[Window.Property(d_backdrop)]</texture>
+                <visible>!String.IsEmpty(Window.Property(d_backdrop))</visible>
+            </control>
+            <control type="image">
+                <left>0</left><top>0</top><width>1920</width><height>1080</height>
+                <texture colordiffuse="C80B0D12">hdfcnew_white.png</texture>
+            </control>
+            <control type="image">
+                <left>0</left><top>0</top><width>1300</width><height>1080</height>
+                <texture colordiffuse="E6FFFFFF">hdfcnew_gradient_h.png</texture>
+            </control>
+            <control type="image">
+                <left>0</left><top>640</top><width>1920</width><height>440</height>
+                <texture colordiffuse="FFFFFFFF">hdfcnew_gradient_v.png</texture>
+            </control>
+
+            <!-- poster 2:3 -->
+            <control type="image">
+                <left>102</left><top>102</top><width>576</width><height>816</height>
+                <texture border="32" colordiffuse="55E50914">hdfcnew_glow.png</texture>
+            </control>
+            <control type="image">
+                <left>150</left><top>150</top><width>480</width><height>720</height>
+                <texture diffuse="hdfcnew_mask.png">hdfcnew_placeholder.png</texture>
+            </control>
+            <control type="image">
+                <left>150</left><top>150</top><width>480</width><height>720</height>
+                <aspectratio>scale</aspectratio>
+                <fadetime>250</fadetime>
+                <texture background="true" diffuse="hdfcnew_mask.png" fallback="hdfcnew_placeholder.png">$INFO[Window.Property(d_poster)]</texture>
+            </control>
+            <control type="image">
+                <left>143</left><top>143</top><width>494</width><height>734</height>
+                <texture border="20" colordiffuse="FFE50914">hdfcnew_border.png</texture>
+            </control>
+
+            <!-- title, original title (only when there is one), one info line -->
+            <control type="grouplist">
+                <left>720</left><top>140</top><width>1050</width><height>170</height>
+                <orientation>vertical</orientation>
+                <itemgap>6</itemgap>
+                <control type="label">
+                    <width>1050</width><height>62</height>
+                    <font>font30_title</font>
+                    <aligny>center</aligny>
+                    <textcolor>FFFFFFFF</textcolor>
+                    <scroll>true</scroll>
+                    <label>$INFO[Window.Property(d_title)]</label>
+                </control>
+                <control type="label">
+                    <width>1050</width><height>34</height>
+                    <font>font12</font>
+                    <aligny>center</aligny>
+                    <textcolor>FF8A90A0</textcolor>
+                    <label>$INFO[Window.Property(d_original)]</label>
+                    <visible>!String.IsEmpty(Window.Property(d_original))</visible>
+                </control>
+                <control type="label">
+                    <width>1050</width><height>40</height>
+                    <font>font13</font>
+                    <aligny>center</aligny>
+                    <textcolor>FFC8CCD6</textcolor>
+                    <label>$INFO[Window.Property(d_meta)]</label>
+                </control>
+            </control>
+
+            <!-- plot: scrolls by itself while the buttons have focus, manually with the scrollbar (Up from the buttons) -->
+            <control type="textbox">
+                <left>720</left><top>312</top><width>1050</width><height>220</height>
+                <font>font13</font>
+                <textcolor>FFC8CCD6</textcolor>
+                <label>$INFO[Window.Property(d_plot)]</label>
+                <pagecontrol>710</pagecontrol>
+                <autoscroll delay="4000" time="2500" repeat="6000">!Control.HasFocus(710)</autoscroll>
+            </control>
+            <control type="scrollbar" id="710">
+                <left>1790</left><top>312</top><width>12</width><height>220</height>
+                <texturesliderbackground border="4" colordiffuse="22FFFFFF">hdfcnew_rounded.png</texturesliderbackground>
+                <texturesliderbar border="4" colordiffuse="66FFFFFF">hdfcnew_rounded.png</texturesliderbar>
+                <texturesliderbarfocus border="4" colordiffuse="FFE50914">hdfcnew_rounded.png</texturesliderbarfocus>
+                <showonepage>false</showonepage>
+                <orientation>vertical</orientation>
+                <ondown>701</ondown>
+                <onleft>701</onleft>
+                <onright>701</onright>
+            </control>
+            <control type="label">
+                <left>720</left><top>312</top><width>700</width><height>44</height>
+                <font>font12</font>
+                <textcolor>FF8A90A0</textcolor>
+                <label>$ADDON[plugin.video.hdfcnew 30088]</label>
+                <visible>String.IsEqual(Window.Property(d_loading),true) + String.IsEmpty(Window.Property(d_plot))</visible>
+                <animation effect="fade" start="35" end="100" time="700" pulse="true" condition="true">Conditional</animation>
+            </control>
+
+            <!-- buttons: Play (Episodes for a series) is focused first; Trailer only when the page offers one -->
+            <control type="grouplist" id="700">
+                <left>720</left><top>562</top><width>1050</width><height>64</height>
+                <orientation>horizontal</orientation>
+                <itemgap>18</itemgap>
+                <onup>710</onup>
+                <control type="button" id="701">
+                    <width>280</width><height>64</height>
+                    <label>$INFO[Window.Property(d_main_label)]</label>
+                    <font>font13</font>
+                    <align>center</align>
+                    <aligny>center</aligny>
+                    <textcolor>FFC8CCD6</textcolor>
+                    <focusedcolor>FFFFFFFF</focusedcolor>
+                    <texturefocus border="16" colordiffuse="FFE50914">hdfcnew_rounded.png</texturefocus>
+                    <texturenofocus border="16" colordiffuse="FF1E2330">hdfcnew_rounded.png</texturenofocus>
+                    <onup>710</onup>
+                </control>
+                <control type="button" id="702">
+                    <width>240</width><height>64</height>
+                    <label>$ADDON[plugin.video.hdfcnew 30081]</label>
+                    <font>font13</font>
+                    <align>center</align>
+                    <aligny>center</aligny>
+                    <textcolor>FFC8CCD6</textcolor>
+                    <focusedcolor>FFFFFFFF</focusedcolor>
+                    <texturefocus border="16" colordiffuse="FFE50914">hdfcnew_rounded.png</texturefocus>
+                    <texturenofocus border="16" colordiffuse="FF1E2330">hdfcnew_rounded.png</texturenofocus>
+                    <onup>710</onup>
+                    <visible>String.IsEqual(Window.Property(d_trailer),true)</visible>
+                </control>
+                <control type="button" id="703">
+                    <width>220</width><height>64</height>
+                    <label>$ADDON[plugin.video.hdfcnew 30082]</label>
+                    <font>font13</font>
+                    <align>center</align>
+                    <aligny>center</aligny>
+                    <textcolor>FFC8CCD6</textcolor>
+                    <focusedcolor>FFFFFFFF</focusedcolor>
+                    <texturefocus border="16" colordiffuse="FFE50914">hdfcnew_rounded.png</texturefocus>
+                    <texturenofocus border="16" colordiffuse="FF1E2330">hdfcnew_rounded.png</texturenofocus>
+                    <onup>710</onup>
+                </control>
+            </control>
+
+            <!-- director / cast / sources: a row is left out when it has no data -->
+            <control type="grouplist">
+                <left>720</left><top>662</top><width>1050</width><height>220</height>
+                <orientation>vertical</orientation>
+                <itemgap>4</itemgap>
+                <control type="group">
+                    <width>1050</width><height>40</height>
+                    <visible>!String.IsEmpty(Window.Property(d_director))</visible>
+                    <control type="label">
+                        <left>0</left><top>0</top><width>150</width><height>40</height>
+                        <font>font12</font><aligny>center</aligny>
+                        <textcolor>FF6C7385</textcolor>
+                        <label>$ADDON[plugin.video.hdfcnew 30085]</label>
+                    </control>
+                    <control type="label">
+                        <left>160</left><top>0</top><width>890</width><height>40</height>
+                        <font>font12</font><aligny>center</aligny>
+                        <textcolor>FFE6E8EE</textcolor>
+                        <label>$INFO[Window.Property(d_director)]</label>
+                    </control>
+                </control>
+                <control type="group">
+                    <width>1050</width><height>84</height>
+                    <visible>!String.IsEmpty(Window.Property(d_cast))</visible>
+                    <control type="label">
+                        <left>0</left><top>0</top><width>150</width><height>40</height>
+                        <font>font12</font><aligny>center</aligny>
+                        <textcolor>FF6C7385</textcolor>
+                        <label>$ADDON[plugin.video.hdfcnew 30086]</label>
+                    </control>
+                    <control type="textbox">
+                        <left>160</left><top>5</top><width>890</width><height>76</height>
+                        <font>font12</font>
+                        <textcolor>FFE6E8EE</textcolor>
+                        <label>$INFO[Window.Property(d_cast)]</label>
+                    </control>
+                </control>
+                <control type="group">
+                    <width>1050</width><height>40</height>
+                    <visible>!String.IsEmpty(Window.Property(d_sources))</visible>
+                    <control type="label">
+                        <left>0</left><top>0</top><width>150</width><height>40</height>
+                        <font>font12</font><aligny>center</aligny>
+                        <textcolor>FF6C7385</textcolor>
+                        <label>$ADDON[plugin.video.hdfcnew 30087]</label>
+                    </control>
+                    <control type="label">
+                        <left>160</left><top>0</top><width>890</width><height>40</height>
+                        <font>font12</font><aligny>center</aligny>
+                        <textcolor>FFE6E8EE</textcolor>
+                        <scroll>true</scroll>
+                        <label>$INFO[Window.Property(d_sources)]</label>
+                    </control>
+                </control>
+            </control>
+
+            <!-- busy (opening the seasons from the Episodes button) -->
+            <control type="label">
+                <left>720</left><top>900</top><width>700</width><height>44</height>
+                <font>font12</font>
+                <textcolor>FFC8CCD6</textcolor>
+                <label>$ADDON[plugin.video.hdfcnew 30069]</label>
+                <visible>String.IsEqual(Window.Property(loading),true)</visible>
+                <animation effect="fade" start="35" end="100" time="700" pulse="true" condition="true">Conditional</animation>
+            </control>
+        </control>
+    </controls>
+</window>
